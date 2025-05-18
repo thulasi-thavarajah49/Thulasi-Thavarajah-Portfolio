@@ -25,11 +25,11 @@ function DailyQuote() {
 
   //show the quote and author on the screen
   return (
-    <div className="card bg-primary text-primary-content w-96 fixed top-5 right-5 shadow-lg">
-      <div className="card-body">
+    <div className="daily-quote-card">
+      <div className="card-body text-black">
         <h2 className="card-title">Daily Quote</h2>
-        <p className="italic">"{quote}"</p>
-        <p className="text-right mt-2">— {author}</p>
+        <p className="text-[22px] italic font-thin">"{quote}"</p>
+        <p className="text-[15px] text-right mt-2">— {author}</p>
       </div>
     </div>
   );
