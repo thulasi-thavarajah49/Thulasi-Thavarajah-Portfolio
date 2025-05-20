@@ -23,8 +23,8 @@ function Preferences() {
 
   //show the preferences card on the screen 
   return (
-    <div className="preferences-card">
-      <div className="card-body">
+    <div className="relative preferences-card h-full w-full">
+      <div className="card-body flex-col gap-7">
         <h2 className="card-title">User Preferences</h2>
         <button
           onClick={() => setDarkMode(!darkMode)}
@@ -41,8 +41,9 @@ function Preferences() {
         <button
           onClick={() => setCompleteTasks(!completeTasks)}
           className="button">
-          {completeTasks ? "Enable deadlines: ON" : "Enable deadlines: OFF"}
+          {completeTasks ? "Auto-complete tasks: ON" : "Auto-complete tasks: OFF"}
         </button>
+        <div className="text-transparent p-7">thisisthefake</div>
         <button
           onClick={resetPreferences}
           className="reset-button"
