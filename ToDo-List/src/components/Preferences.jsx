@@ -1,57 +1,32 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { PreferencesContext } from "../context/PreferencesContext";
 
-//function that manages the preferences 
 function Preferences() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [deadlines, setDeadlines] = useState(false);
-  const [completeTasks, setCompleteTasks] = useState(false);
+  const {
+    darkMode,
+    setDarkMode,
+    deadlines,
+    setDeadlines,
+    autoComplete,
+    setAutoComplete,
+    resetPreferences,
+  } = useContext(PreferencesContext);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
-
-  //reset all preferences to default
-  const resetPreferences = () => {
-    setDarkMode(false);
-    setDeadlines(false);
-    setCompleteTasks(false);
-  };
-
-  //show the preferences card on the screen 
   return (
-    <div className="relative preferences-card h-full w-full">
-      <div className="card-body flex-col gap-7">
-        <h2 className="card-title">User Preferences</h2>
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="button"
-        >
-          <p>{darkMode ? "Dark mode: ON" : "Dark mode: OFF"}</p>
-        </button>
-        <button
-          onClick={() => setDeadlines(!deadlines)}
-          className="button"
-        >
-          <p>{deadlines ? "Enable deadlines: ON" : "Enable deadlines: OFF"}</p>
-        </button>
-        <button
-          onClick={() => setCompleteTasks(!completeTasks)}
-          className="button">
-          {completeTasks ? "Auto-complete tasks: ON" : "Auto-complete tasks: OFF"}
-        </button>
-        <div className="text-transparent p-7">thisisthefake</div>
-        <button
-          onClick={resetPreferences}
-          className="reset-button"
-        >
-          Reset Preferences
-        </button>
-
-      </div>
+    <div className="preferences-card h-full w-full p-4 flex flex-col gap-4">
+      <h2 className="card-title">Preferences</h2>
+      <button className="pref-button w-full" onClick={() => setDarkMode(!darkMode)}>
+        Dark mode: {darkMode ? "ON" : "OFF"}
+      </button>
+      <button className="pref-button" onClick={() => setDeadlines(!deadlines)}>
+        Enable deadlines: {deadlines ? "ON" : "OFF"}
+      </button>
+      <button className="pref-button" onClick={() => setAutoComplete(!autoComplete)}>
+        Auto-complete tasks: {autoComplete ? "ON" : "OFF"}
+      </button>
+      <button className="reset-button" onClick={resetPreferences}>
+        Reset Preferences
+      </button>
     </div>
   );
 }

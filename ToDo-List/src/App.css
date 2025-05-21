@@ -5,17 +5,8 @@
 #root {
   max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
-}
-
-.daily-quote-card {
-  padding: 1em;
-  background: #9fefcb;
-  border-width: 2px;
-  border-style: dashed;
-  border-radius: 10px;
-  border-color: black;
 }
 
 html {
@@ -23,37 +14,78 @@ html {
 }
 
 html.dark {
-  background-color: black;
+  background-color: rgb(29, 29, 29);
   color: white;
+}
+
+.daily-quote-card {
+  padding: 1em;
+  background: #9fefcb;
+  border-radius: 5px;
+  border-color: black;
+  box-shadow: 0 0px 10px #a6a6a6 ;
 }
 
 html.dark .daily-quote-card {
   background: #2c7655;
-  border-color:white
+  border-color:white;
+  box-shadow: 0 0px 8px #000 ;
 }
 
 .preferences-card {
-  padding: 1em;
+  padding: 2em;
   background: #e9d4ff;
-  border-width: 2px;
-  border-style: dashed;
-  border-radius: 10px;
-  border-color: black;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px #a6a6a6 ;
 }
 
 html.dark .preferences-card {
   background: #643f7b;
-  border-color:white
+  box-shadow: 0 2px 8px #000000 ;
+}
+
+.modal-card {
+  padding: 2em;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px #000000 ;
+}
+
+html.dark .modal-card {
+  background: black;
 }
 
 .tasks-card {
-  padding: 1em;
-  background: #ffafb8;
-  border-width: 2px;
-  border-style: dashed;
-  border-radius: 10px;
+  padding: 2em ;
+  background: #b7bdfe;
+  border-radius: 5px;
   border-color: black;
-  color:black
+  color:black;
+  box-shadow:  1px 2px 10px #a6a6a6 ;
+}
+
+html.dark .tasks-card {
+  background: #2e3475;
+  color:white;
+  box-shadow:  1px 2px 10px #000 ;
+}
+
+.overdue-task{
+  color:#ff001e
+}
+
+html.dark .overdue-task{
+  color:rgb(255, 75, 75)
+}
+
+
+.toaster-notif {
+  padding: 1em ;
+  background: #cf0018;
+  border-radius: 5px;
+  color:white;
+  font-size: 20px ;
+  font-weight: bold;
 }
 
 .tasks-modal {
@@ -72,72 +104,58 @@ html.dark .preferences-card {
 }
 
 
-html.dark .tasks-card {
-  background: #9d404b;
-  border-color:white;
-  color:white;
-}
-
-.card {
-  padding: 1em;
-  border-width: 2px;
-  border-style: dashed;
-  font:black;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 10px;
-  border: 2px dashed ;
-  padding: 0.6em 1.2em;
-  font: 18px;
-  font-weight: 500;
+.pref-button {
+  border-radius: 5px;
+  padding: 1em 1.5em;
+  font-size: 20px;
+  font-weight: 400;
   font-family: inherit;
   cursor: scroll;
-  transition: border-color 0.25s;
   cursor: pointer;
+  background: #d8b3ff;
+  box-shadow: 0 3px 6px #000000;
 }
 
-
-
-.card-title {
-  display: flex;
-  align-items: center;
-  gap: calc(0.25rem /* 4px */ * 2) /* 0.5rem = 8px */;
-  font-size: var(--cardtitle-fs, 1.2rem /* 18px */);
-  font-weight: 800;
-}
-
- .card-body {
-  color:black;
-  
-  padding: var(--card-p, 0.5rem /* 24px */);
-  font-size: var(--card-fs, 1rem /* 14px */);
-  :where(p) {
-    flex-grow: 1;
-  }
+html.dark .pref-button{
+  background-color: #7e4f9b;
 }
 
 .reset-button {
   background-color: white;
   color: black;
-  border: 2px dashed black;
-  padding: 0.5rem 1rem;
-  width: 100%;
-  border-radius: 8px;
-  font-weight: 800;
+  border-radius: 5px;
+  padding: 1em 1.2em;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: scroll;
   cursor: pointer;
+  box-shadow: 0 3px 5px #000000;
 }
 
 html.dark .reset-button{
-  border: 2px dashed white;
   background-color: black;
-  color:white
+  color:white;
+  box-shadow: none;
 }
 
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: calc(0.25rem /* 4px */ * 2) /* 0.5rem = 8px */;
+  font-size: 28px;
+  font-weight: 800;
+  color: #000;
+}
+
+html.dark .card-title {
+  color: white;
+}
+
+ .card-body {
+  color:black;
+  padding: 2em;
+}
 
 html.dark .card-body{
   color:white;
@@ -165,12 +183,15 @@ html.dark .card-body{
 }
 
 .add-task-button {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 18px;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  font-weight: 500;
   background: none;
   border: none;
   cursor: pointer;
   user-select: none;
+  box-shadow: 0 2px 5px #000000;
 }
 
 .task-item {

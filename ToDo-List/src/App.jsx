@@ -3,21 +3,33 @@ import './App.css'
 import DailyQuote from "./components/DailyQuote";
 import Preferences from './components/Preferences';
 import "./index.css";
+import TaskList from './components/TaskList';
+import ModalEditTask from './components/ModalEditTask';
+import ModalAddTask from './components/ModalAddTask';
+import { PreferencesContext, PreferencesProvider } from './context/PreferencesContext';
+
 
 function App() {
   return (
-    <main className=' ml-0 mr-6 flex flex-col justify-evenly h-[92vh] p-4 min-w-[90vw'>
-      <div className='flex flex-col md:flex-row gap-4 flex-1/3'>
-        <div className='md:w-2/3'><DailyQuote/></div>
-        <div className='md:w-1/3 flex flex-col gap-4'>
-        <div className='md:h-2/5'><DailyQuote/></div>
-        <div className='md:h-3/5'><Preferences/></div>
+    <PreferencesProvider>
+    <main className='w-full max-w-screen h-[92vh] p-4 flex flex-col min-w-0'>
+      <div className='flex flex-col md:flex-row gap-4 flex-1 min-w-0'>
+        <div className='md:w-[66.6vw] w-full min-w-0'>
+          <TaskList />
+        </div>
+        <div className='md:w-[33.3vw] w-full flex flex-col gap-4 min-w-0'>
+          <div className='md:h-1/4 flex-1 min-w-0 '>
+            <DailyQuote />
+          </div>
+          <div className='md:h-3/4 flex-1 min-w-0'>
+            <Preferences />
+          </div>
         </div>
       </div>
     </main>
-
-      
+    </PreferencesProvider>
   );
 }
+
 
 export default App;
