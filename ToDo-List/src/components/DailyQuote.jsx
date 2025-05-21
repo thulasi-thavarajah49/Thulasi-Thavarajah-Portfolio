@@ -2,24 +2,27 @@ import { useState, useEffect } from "react";
 
 //function that gets a daily quote
 function DailyQuote() {
+
   //start off with the loading screen for the quote
   const [quote, setQuote] = useState("Loading...");
   const [author, setAuthor] = useState("Loading...");
 
   //run this once when the quote component loads 
     useEffect(() => {
-    //fetch response 
+
+    //fetch response from api
     fetch("https://quotes-api-self.vercel.app/quote")
+    //convert response to JSON format
       .then(response => response.json())
-      //initialize data
-      .then(data => {
-        setQuote(data.quote);
-        setAuthor(data.author);
+      //change variable states of quote and author
+      .then(quoteData => {
+        setQuote(quoteData.quote);
+        setAuthor(quoteData.author);
       })
       //if there is an error, display the following
       .catch(error => {
         setQuote("Could not load quote.");
-        setAuthor("Unknown");
+        setAuthor("Could not load author.");
       });
   }, []);
 
