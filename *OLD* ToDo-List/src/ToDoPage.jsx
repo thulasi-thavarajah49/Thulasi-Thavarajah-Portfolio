@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import DailyQuote from "./components/DailyQuote";
+import UserProfile from './components/UserProfile';
 import Preferences from './components/Preferences';
 import "./index.css";
 import TaskList from './components/TaskList';
@@ -14,8 +15,8 @@ function App() {
     <PreferencesProvider>
     <main className='w-full max-w-screen h-[92vh] p-4 flex flex-col min-w-0'>
       <div className='flex flex-col md:flex-row gap-4 flex-1 min-w-0'>
-        <div className='md:w-[66.6vw] w-full min-w-0'>
-          <TaskList />
+        <div className='md:w-[66.6vw] w-full flex flex-col gap-4 min-w-0'>
+        <TaskList/>
         </div>
         <div className='md:w-[33.3vw] w-full flex flex-col gap-4 min-w-0'>
           <div className='md:h-1/4 flex-1 min-w-0 '>
@@ -32,4 +33,4 @@ function App() {
 }
 
 
-export default App;
+export default ToDoPage;

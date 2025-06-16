@@ -21,7 +21,7 @@ function ModalAddTask({ onClose, onAdd }) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="modal-card p-6 rounded-lg w-full max-w-md">
         <h2 className="card-title">Add Task</h2>
         <div className="text-transparent">hello</div>
