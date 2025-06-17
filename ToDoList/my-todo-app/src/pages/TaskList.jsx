@@ -134,27 +134,31 @@ function TaskList() {
     content = Object.keys(grouped)
       .sort()
       .map((date) => (
-        <div key={date} className="mt-4 mb-4">
-          <p className="font-semibold text-[22px]">{date}</p>
+        <div key={date} className="mt-6 mb-6">
+          <p className="font-semibold text-center text-[22px]">{date}</p>
           <ol className="list-decimal list-inside">
             {grouped[date].map((task) => (
-              <li key={task.id} className="flex items-center gap-2">
+              <li key={task.id} className="flex items-center gap-2 mb-6">
                 <input
                   type="checkbox"
                   className="task-checkbox"
                   checked={task.completed}
                   onChange={() => toggleCompleted(task.id)}
                 />
-                <span
-                  onClick={() => setEditTaskInfo(task)}
-                  className={`flex-1 cursor-pointer ${
-                    task.completed ? "line-through text-gray-500" : ""
-                  } ${
-                    task.date && task.date.split("T")[0] < today ? "font-bold overdue-task" : ""
-                  } text-left text-[20px]`}
-                >
-                  {task.title}
-                </span>
+                {(() => {
+  const taskDate = (task.deadline || task.date || "").split("T")[0];
+  const isOverdue = taskDate < today && !task.completed;
+  return (
+    <span
+      onClick={() => setEditTaskInfo(task)}
+      className={`flex-1 cursor-pointer ${
+        task.completed ? "line-through text-gray-500" : ""
+      } ${isOverdue ? "overdue-tasks font-bold" : ""} text-left text-[20px]`}
+    >
+      {task.title}
+    </span>
+  );
+})()}
               </li>
             ))}
           </ol>
@@ -181,7 +185,7 @@ function TaskList() {
               className={`flex-1 cursor-pointer ${
                 task.completed ? "line-through text-gray-500" : ""
               } ${
-                task.date && task.date < today ? "font-extrabold overdue-task" : ""
+                task.date && task.date < today ? "font-extrabold overdue-tasks" : ""
               } text-left text-[20px]`}
             >
               {task.title}
@@ -193,11 +197,11 @@ function TaskList() {
   }
 
   return (
-    <div className="tasks-card h-full gap-4">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="card-title text-xl font-bold">Tasks</h1>
+    <div className="home-card  h-full rounded-3xl p-4 gap-7">
+      <div className="flex justify-between items-center mb-8 ">
+        <div className=" text-[40px] font-bold">Tasks</div>
         <button
-          className="add-task-button"
+          className="btn btn-soft w-40 text-right"
           onClick={() => setShowAddModal(true)}
           disabled={loading}
         >

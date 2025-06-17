@@ -40,5 +40,12 @@ h1 {
   line-height: 1.1;
 }
 
+.overdue-tasks {
+  color: #ef3838;
+}
 
-
+.home-card {
+  padding: 2em;
+  border-radius: 5px;
+  border-color: black;
+}

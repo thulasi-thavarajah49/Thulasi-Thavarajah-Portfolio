@@ -48,18 +48,19 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[100vh] bg-base-200 px-4 gap-7">
-      <div className="card bg-primary text-primary-content">
-        <div className="card-body">
-          <div className="card-title">Login</div>
-          <div><form onSubmit={handleSubmit} className="space-y-4 space">
+      <div className="text-[20px] w-[50vw]center">Welcome!</div>
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-[50vw] border p-4">
+        <div className="text-[25px] text-center font-bold">Login</div>
+        <div><form onSubmit={handleSubmit} className="form-control gap-6">
             <div className="">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
+              <div><label className="label">
+                <span className="label-text text-[20px]">Email</span>
+              </label></div>
               <input
                 type="email"
                 placeholder="user@example.com"
-                className="input input-bordered"
+                className="input"
+                style={{ fontSize: '20px' }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -68,13 +69,15 @@ export default function Login() {
             </div>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
+              <div><label className="label">
+                <span className="label-text text-[20px] ">Password</span>
+              </label></div>
+              
               <input
                 type="password"
                 placeholder="••••••••"
-                className="input input-bordered"
+                className="input rounded-box"
+                  style={{ fontSize: '20px' }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -82,21 +85,20 @@ export default function Login() {
               />
             </div>
 
-            <div className="form-control mt-6">
+            <div className="form-control mt-6 text-[20px] p-5">
               <button
                 type="submit"
-                className="btn btn-primary w-full"
+                className="glass btn btn-primary w-full "
                 disabled={loginMutation.isLoading}
               >
                 {loginMutation.isLoading ? "Logging in..." : "Login"}
               </button>
             </div>
           </form></div>
-        </div>
-      </div>
+      </fieldset>
 
 
-      <div className="text-center mt-4">
+      <div className="text-center mt-4 text-[20px]">
         <p>
           Don't have an account?{" "}
           <a href="/register" className="text-primary hover:underline">

@@ -30,11 +30,11 @@ function DailyQuote() {
 
   //show the quote and author on the screen
   return (
-    <div className="card bg-secondary text-neutral-content w-96">
-      <div className="card-body p-7">
-        <p className="text-[22px]">Daily Quote</p>
-        <div className=""><p className="text-[22px]  italic font-thin break-words">"{quote}"</p></div>
-        <p className="text-[15px] text-right mt-2">— {author}</p>
+    <div className="home-card bg-secondary text-neutral-content w-[97%]">
+      <div className="flex flex-col p-7">
+        <p className="font-bold text-[22px]">Daily Quote</p>
+        <div className=""><p className="text-[25px]  italic font-thin break-words">"{quote}"</p></div>
+        <p className="text-[15px] text-right ">— {author}</p>
       </div>
     </div>
   );

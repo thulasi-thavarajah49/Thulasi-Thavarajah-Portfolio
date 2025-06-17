@@ -14,9 +14,9 @@ function ModalEditTask({ task, onClose, onSave, onDelete }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-opacity-30 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-opacity-30 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="modal-card p-6 rounded-lg w-full max-w-md">
-        <h2 className="card-title">Edit Task</h2>
+        <div className="text-[22px] font-bold">Edit Task</div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 justify-stretch">
           <div className="text-transparent">hello</div>
@@ -37,16 +37,16 @@ function ModalEditTask({ task, onClose, onSave, onDelete }) {
 
           <div className="text-transparent">hello</div>
           <div className="flex justify-between mt-4">
-            <button type="button" className="add-task-button" onClick={onDelete}>
+            <button type="button" className="btn btn-soft w-25" onClick={onDelete}>
               Delete
             </button>
 
             <div className="flex gap-2">
-              <button type="button" className="add-task-button" onClick={onClose}>
+              <button type="button" className="btn btn-soft w-25" onClick={onClose}>
                 Cancel
               </button>
 
-              <button type="submit" className="add-task-button">
+              <button type="submit" className="btn btn-soft w-20">
                 Save
               </button>
             </div>
