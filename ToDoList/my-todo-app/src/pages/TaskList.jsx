@@ -7,9 +7,12 @@ import { PreferencesContext } from "../context/PreferencesContext";
 import "../index.css";
 
 function TaskList() {
+
+  //initialze states 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //are deadlines turned on? 
   const {deadlines, autoComplete} = useContext(PreferencesContext)
 
   const [showAddModal, setShowAddModal] = useState(false);
@@ -193,7 +196,7 @@ const isOverdue = taskDate && taskDate < today && !task.completed;
       onClick={() => setEditTaskInfo(task)}
       className={`flex-1 cursor-pointer ${
         task.completed ? "line-through text-gray-500" : ""
-      } ${isOverdue ? "font-extrabold overdue-tasks" : ""} text-left text-[20px]`}
+      } ${deadlines && isOverdue ? "font-extrabold overdue-tasks" : ""} text-left text-[20px]`}
     >
       {task.title}
     </span>
