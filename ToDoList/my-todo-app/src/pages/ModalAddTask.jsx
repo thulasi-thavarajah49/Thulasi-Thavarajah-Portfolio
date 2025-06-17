@@ -3,6 +3,7 @@ import "../index.css";
 
 
 function ModalAddTask({ onClose, onAdd }) {
+  const today = new Date().toISOString().split("T")[0];
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState("");
 

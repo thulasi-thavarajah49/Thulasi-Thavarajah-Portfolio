@@ -1,7 +1,6 @@
 // src/pages/Register.jsx
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
@@ -96,9 +95,12 @@ export default function Register() {
       <div className="text-center mt-4 text-[20px]">
             <p>
               Already have an account?{" "}
-              <a href="/login" className="text-primary hover:underline">
-                Login here
-              </a>
+              <button
+          className="text-primary underline cursor-pointer"
+          onClick={() => navigate("/")}
+          >
+          Login here
+          </button>
             </p>
           </div>
 

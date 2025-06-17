@@ -36,29 +36,30 @@ function TaskList() {
   }, []);
 
   // Show toast if there are overdue tasks, only once
-  useEffect(() => {
+useEffect(() => {
   if (!loading) {
     const hasOverdue = tasks.some((task) => {
-  const d = task.deadline || task.date;
-  return d && d < today && !task.completed;
-});
+      const d = task.deadline || task.date;
+      return d && d < today && !task.completed;
+    });
 
-    console.log("Overdue tasks detected?", hasOverdue);
-    if (hasOverdue && !toastShownRef.current) {
-      toastShownRef.current = true;
-      toast("You have overdue tasks!",
-        {
-          icon: '❗',
-          style: {
-            border: '1px solid #f87171', // Tailwind's red-400
-      padding: '12px',
-      color: '#b91c1c', // Tailwind's red-700
-          },
-        }
-      );
+    const toastShown = sessionStorage.getItem("overdueToastShown");
+
+    if (hasOverdue && !toastShown) {
+      toast("You have overdue tasks!", {
+        icon: '❗',
+        style: {
+          border: '1px solid #f87171',
+          padding: '12px',
+          color: '#b91c1c',
+        },
+      });
+
+      sessionStorage.setItem("overdueToastShown", "true");
     }
   }
 }, [tasks, loading, today]);
+
 
 
   // ADD TASK - create on server then update state
@@ -146,8 +147,10 @@ function TaskList() {
                   onChange={() => toggleCompleted(task.id)}
                 />
                 {(() => {
-  const taskDate = (task.deadline || task.date || "").split("T")[0];
-  const isOverdue = taskDate < today && !task.completed;
+  const taskDateRaw = task.deadline || task.date || null;
+const taskDate = taskDateRaw ? taskDateRaw.split("T")[0] : null;
+const isOverdue = taskDate && taskDate < today && !task.completed;
+
   return (
     <span
       onClick={() => setEditTaskInfo(task)}
@@ -180,16 +183,23 @@ function TaskList() {
               checked={task.completed}
               onChange={() => toggleCompleted(task.id)}
             />
-            <span
-              onClick={() => setEditTaskInfo(task)}
-              className={`flex-1 cursor-pointer ${
-                task.completed ? "line-through text-gray-500" : ""
-              } ${
-                task.date && task.date < today ? "font-extrabold overdue-tasks" : ""
-              } text-left text-[20px]`}
-            >
-              {task.title}
-            </span>
+            {(() => {
+  const taskDateRaw = task.deadline || task.date || null;
+  const taskDate = taskDateRaw ? taskDateRaw.split("T")[0] : null;
+  const isOverdue = taskDate && taskDate < today && !task.completed;
+
+  return (
+    <span
+      onClick={() => setEditTaskInfo(task)}
+      className={`flex-1 cursor-pointer ${
+        task.completed ? "line-through text-gray-500" : ""
+      } ${isOverdue ? "font-extrabold overdue-tasks" : ""} text-left text-[20px]`}
+    >
+      {task.title}
+    </span>
+  );
+})()}
+
           </li>
         ))}
       </ol>

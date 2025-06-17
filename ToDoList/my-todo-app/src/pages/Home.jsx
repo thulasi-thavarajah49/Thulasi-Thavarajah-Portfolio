@@ -1,10 +1,9 @@
-// src/pages/Home.jsx
 import TaskList from "./TaskList";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import Logout from "./Logout";
 import ErrorBoundary from "../ErrorBoundary";
-import DailyQuote from "./DailyQuote";
+import DailyQuote from "./NewDailyQuote";
 import Preferences from "./Preferences";
 import { PreferencesProvider } from "../context/PreferencesContext";
 import "../index.css";

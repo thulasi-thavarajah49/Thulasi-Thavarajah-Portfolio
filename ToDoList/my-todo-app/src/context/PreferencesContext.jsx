@@ -32,7 +32,7 @@ function PreferencesProvider({ children }) {
     localStorage.setItem("pref_autoComplete", autoComplete);
   }, [darkMode, deadlines, autoComplete]);
 
-  //if darkMode is true, set the HTML of the document to dark - in app.css, I have classes for each card in light and dark HTML
+  //if darkMode is true, set the theme to dark mode
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", darkMode ? "dark" : "light");
   }, [darkMode]);

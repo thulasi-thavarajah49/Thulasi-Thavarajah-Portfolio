@@ -4,7 +4,12 @@ import "../index.css";
 
 function ModalEditTask({ task, onClose, onSave, onDelete }) {
   const [title, setTitle] = useState(task.title);
-  const [deadline, setDeadline] = useState(task.deadline || "");
+  const today = new Date().toISOString().split("T")[0];
+const [deadline, setDeadline] = useState(
+  task.deadline ? task.deadline.split("T")[0] : ""
+);
+
+
 
   function handleSubmit(e) {
     e.preventDefault();
