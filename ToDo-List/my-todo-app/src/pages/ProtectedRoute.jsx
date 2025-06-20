@@ -5,6 +5,7 @@ import api from "../api";
 import toast from "react-hot-toast";
 import "../index.css";
 
+//change to use query and use auth/check route 
 
 export default function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);

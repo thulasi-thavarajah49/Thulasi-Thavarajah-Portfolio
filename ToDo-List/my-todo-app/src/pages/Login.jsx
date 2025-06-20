@@ -42,7 +42,7 @@ export default function Login() {
       toast.success("Logged in successfully!");
 
       //add a delay before redirecting to home to allow toast notification to appear
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      
       navigate("/home");
     },
 

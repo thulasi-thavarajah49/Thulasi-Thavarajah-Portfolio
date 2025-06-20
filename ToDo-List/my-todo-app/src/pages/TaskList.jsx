@@ -7,21 +7,20 @@ import { PreferencesContext } from "../context/PreferencesContext";
 import "../index.css";
 
 function TaskList() {
-
-  //initialze states 
+  //initialze states
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //are deadlines turned on? 
-  const {deadlines, autoComplete} = useContext(PreferencesContext)
+  //are deadlines turned on?
+  const { deadlines, autoComplete } = useContext(PreferencesContext);
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [editTaskInfo, setEditTaskInfo] = useState(null);
 
-  const toastShownRef = useRef(false);
+  //fix - date should change as date changes on user system
   const today = new Date().toISOString().split("T")[0];
 
-  // Fetch all todos on mount
+  // Fetch all todos on mount - use useQuery
   useEffect(() => {
     async function fetchTasks() {
       setLoading(true);
@@ -39,31 +38,29 @@ function TaskList() {
   }, []);
 
   // Show toast if there are overdue tasks, only once
-useEffect(() => {
-  if (!loading) {
-    const hasOverdue = tasks.some((task) => {
-      const d = task.deadline || task.date;
-      return d && d < today && !task.completed;
-    });
-
-    const toastShown = sessionStorage.getItem("overdueToastShown");
-
-    if (hasOverdue && !toastShown) {
-      toast("You have overdue tasks!", {
-        icon: '❗',
-        style: {
-          border: '1px solid #f87171',
-          padding: '12px',
-          color: '#b91c1c',
-        },
+  useEffect(() => {
+    if (!loading) {
+      const hasOverdue = tasks.some((task) => {
+        const d = task.deadline || task.date;
+        return d && d < today && !task.completed;
       });
 
-      sessionStorage.setItem("overdueToastShown", "true");
+      const toastShown = sessionStorage.getItem("overdueToastShown");
+
+      if (hasOverdue && !toastShown) {
+        toast("You have overdue tasks!", {
+          icon: "❗",
+          style: {
+            border: "1px solid #f87171",
+            padding: "12px",
+            color: "#b91c1c",
+          },
+        });
+
+        sessionStorage.setItem("overdueToastShown", "true");
+      }
     }
-  }
-}, [tasks, loading, today]);
-
-
+  }, [tasks, loading, today]);
 
   // ADD TASK - create on server then update state
   async function addTask(task) {
@@ -111,9 +108,7 @@ useEffect(() => {
     try {
       await api.patch(`/api/todos/${id}/toggle`);
       setTasks((prev) =>
-        prev.map((t) =>
-          t.id === id ? { ...t, completed: !t.completed } : t
-        )
+        prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
       );
     } catch (err) {
       toast.error("Failed to toggle task completion");
@@ -128,8 +123,9 @@ useEffect(() => {
     content = <p>Loading tasks...</p>;
   } else if (deadlines) {
     const grouped = tasks.reduce((acc, task) => {
-      const key = task.deadline 
-      ? new Date(task.deadline).toISOString().split("T")[0] : "Undated Tasks";
+      const key = task.deadline
+        ? new Date(task.deadline).toISOString().split("T")[0]
+        : "Undated Tasks";
       if (!acc[key]) acc[key] = [];
       acc[key].push(task);
       return acc;
@@ -150,21 +146,26 @@ useEffect(() => {
                   onChange={() => toggleCompleted(task.id)}
                 />
                 {(() => {
-  const taskDateRaw = task.deadline || task.date || null;
-const taskDate = taskDateRaw ? taskDateRaw.split("T")[0] : null;
-const isOverdue = taskDate && taskDate < today && !task.completed;
+                  const taskDateRaw = task.deadline || task.date || null;
+                  const taskDate = taskDateRaw
+                    ? taskDateRaw.split("T")[0]
+                    : null;
+                  const isOverdue =
+                    taskDate && taskDate < today && !task.completed;
 
-  return (
-    <span
-      onClick={() => setEditTaskInfo(task)}
-      className={`flex-1 cursor-pointer ${
-        task.completed ? "line-through text-gray-500" : ""
-      } ${isOverdue ? "overdue-tasks font-bold" : ""} text-left text-[20px]`}
-    >
-      {task.title}
-    </span>
-  );
-})()}
+                  return (
+                    <span
+                      onClick={() => setEditTaskInfo(task)}
+                      className={`flex-1 cursor-pointer ${
+                        task.completed ? "line-through text-gray-500" : ""
+                      } ${
+                        isOverdue ? "overdue-tasks font-bold" : ""
+                      } text-left text-[20px]`}
+                    >
+                      {task.title}
+                    </span>
+                  );
+                })()}
               </li>
             ))}
           </ol>
@@ -187,22 +188,23 @@ const isOverdue = taskDate && taskDate < today && !task.completed;
               onChange={() => toggleCompleted(task.id)}
             />
             {(() => {
-  const taskDateRaw = task.deadline || task.date || null;
-  const taskDate = taskDateRaw ? taskDateRaw.split("T")[0] : null;
-  const isOverdue = taskDate && taskDate < today && !task.completed;
+              const taskDateRaw = task.deadline || task.date || null;
+              const taskDate = taskDateRaw ? taskDateRaw.split("T")[0] : null;
+              const isOverdue = taskDate && taskDate < today && !task.completed;
 
-  return (
-    <span
-      onClick={() => setEditTaskInfo(task)}
-      className={`flex-1 cursor-pointer ${
-        task.completed ? "line-through text-gray-500" : ""
-      } ${deadlines && isOverdue ? "font-extrabold overdue-tasks" : ""} text-left text-[20px]`}
-    >
-      {task.title}
-    </span>
-  );
-})()}
-
+              return (
+                <span
+                  onClick={() => setEditTaskInfo(task)}
+                  className={`flex-1 cursor-pointer ${
+                    task.completed ? "line-through text-gray-500" : ""
+                  } ${
+                    deadlines && isOverdue ? "font-extrabold overdue-tasks" : ""
+                  } text-left text-[20px]`}
+                >
+                  {task.title}
+                </span>
+              );
+            })()}
           </li>
         ))}
       </ol>
