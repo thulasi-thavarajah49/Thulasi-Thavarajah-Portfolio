@@ -1,7 +1,41 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../api";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfile() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      return await api.post("/api/auth/logout");
+    },
+    onSuccess: (res) => {
+      toast.success("Logout success:" || res.data?.message);
+      queryClient.setQueryData(["user-profile"], null);
+      navigate("/login");
+    },
+    onError: (err) => {
+      toast.error("Logout failed:" || err.response?.data || err.message);
+    },
+  });
+
+  const handleLogout = async () => {
+    try {
+      const res = await api.get("/api/auth/check");
+      if (res.data?.authenticated) {
+        logoutMutation.mutate();
+      } else {
+        toast.error("Already logged out.");
+        navigate("/login");
+      }
+    } catch (err) {
+      toast.error("Session check failed.");
+      navigate("/login");
+    }
+  };
+
   const { isLoading, error, data } = useQuery({
     queryKey: ["user-profile"],
     queryFn: async () => {
@@ -29,9 +63,6 @@ export default function UserProfile() {
         <div className="card-body">
           <h2 className="card-title">User Profile</h2>
           <div className="text-left">{apiMessage}</div>
-          <div className="card-actions justify-end">
-            <button className="btn mt-3 mr-2">Logout</button>
-          </div>
         </div>
       </div>
     );
@@ -46,7 +77,9 @@ export default function UserProfile() {
               <h2 className="card-title mb-2">User Profile</h2>
               <div className="text-left">Welcome, {data.user.email}!</div>
             </div>
-            <button className="btn btn-xl mt-2 mr-2">Logout</button>
+            <button className="btn btn-xl mt-2 mr-2" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         </div>
       </div>

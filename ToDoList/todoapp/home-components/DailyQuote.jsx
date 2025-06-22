@@ -56,7 +56,7 @@ function DailyQuote() {
           <h2 className="card-title">Daily Quote</h2>
         </div>
         <div>
-          <div className="text-center italic font-thin text-[22px] p-6 ">
+          <div className="text-center italic font-thin text-[22px] p-1 ">
             "{data.quote}"
           </div>
         </div>
