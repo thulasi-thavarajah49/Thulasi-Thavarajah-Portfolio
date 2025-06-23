@@ -7,6 +7,41 @@ export default function UserProfile() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
+  //when the user logs out, set all notfied to false so when they log in again, they will get the toasts again
+  const resetAllNotifiedMutation = useMutation({
+    mutationFn: async () => {
+      const response = await api.get("/api/todos");
+      const todos = response.data.todos;
+
+      // Filter todos where notified is true
+      const tasksToReset = [];
+      for (let i = 0; i < todos.length; i++) {
+        if (todos[i].notified === true) {
+          tasksToReset.push(todos[i]);
+        }
+      }
+
+      // Update each todo to set notified to false, sequentially
+      for (let i = 0; i < tasksToReset.length; i++) {
+        const todo = tasksToReset[i];
+        await api.put(`/api/todos/${todo.id}`, {
+          ...todo,
+          notified: false,
+        });
+      }
+
+      return null;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    },
+    onError: (err) => {
+      toast.error(
+        "Failed to reset notified flags: " + (err.response?.data || err.message)
+      );
+    },
+  });
+
   //logout mutation
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -23,8 +58,13 @@ export default function UserProfile() {
   });
 
   //if user presses button twice
-  const handleLogout = () => {
-    logoutMutation.mutate();
+  const handleLogout = async () => {
+    try {
+      await resetAllNotifiedMutation.mutateAsync();
+      await logoutMutation.mutateAsync();
+    } catch (error) {
+      toast.error("Logout failed.");
+    }
   };
 
   //display user details (just the email)

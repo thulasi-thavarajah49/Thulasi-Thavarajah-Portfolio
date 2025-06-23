@@ -96,6 +96,7 @@ export default function TaskList() {
     },
   });
 
+  //group tasks
   function groupTodosByDeadline(todos) {
     const groups = {};
 
@@ -146,7 +147,7 @@ export default function TaskList() {
     return () => clearInterval(interval);
   }, []);
 
-  //dates not stored in the same format
+  //dates not stored in the same format - so convert to same formatted strings
   function formatLocalAsISOWithZ(date) {
     const pad = (n) => String(n).padStart(2, "0");
     const ms = String(date.getMilliseconds()).padStart(3, "0");
@@ -175,20 +176,54 @@ export default function TaskList() {
     return now > deadline;
   }
 
-  //work in progress
-  const markAsNotified = useMutation({
-    mutationFn: async ({ id }) => {
-      const res = await api.delete(`/api/todos/${id}`);
+  //mark as notified
+  const notifiedMutation = useMutation({
+    mutationFn: async ({ id, updatedTodo }) => {
+      const res = await api.put(`/api/todos/${id}`, {
+        ...updatedTodo,
+        notified: true,
+      });
+      console.log("Update response:", res.data);
       return res.data;
     },
-    onSuccess: () => {
-      toast.success("Task deleted!");
+    onSuccess: (responseData) => {
+      const updatedTodo = responseData.todo;
+      toast.error(`Task "${updatedTodo.title}" is overdue!`, {
+        icon: (
+          <span
+            style={{
+              color: "red",
+              fontWeight: "bold",
+              fontSize: "18px",
+              userSelect: "none",
+            }}
+          >
+            ❗
+          </span>
+        ),
+      });
+
       queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
     onError: (err) => {
-      toast.error(err.response?.data?.message || "Failed to delete todo.");
+      console.error("Update todo error:", err);
+      toast.error(err.response?.data?.message || "Failed to update todo.");
     },
   });
+
+  useEffect(() => {
+    if (!data?.todos) return;
+
+    data.todos.forEach((todo) => {
+      if (
+        isOverdue(todo) && // Your existing overdue checker
+        !todo.notified && // Only notify if not already notified
+        !todo.completed // Only if task is not completed
+      ) {
+        notifiedMutation.mutate({ id: todo.id, updatedTodo: todo });
+      }
+    });
+  }, [data]);
 
   if (isLoading) return <div>Loading todos...</div>;
   if (error) return <div>Error fetching todos</div>;
