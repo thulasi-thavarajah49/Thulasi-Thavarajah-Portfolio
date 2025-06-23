@@ -10,7 +10,7 @@ export default function HomePage() {
       <PreferencesProvider>
         <div className="flex flex-col md:flex-row p-4 gap-4">
           <div className="md:w-[65%]">
-            <div className="w-full h-screen flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4">
               <div className="">
                 <UserProfile />
               </div>
