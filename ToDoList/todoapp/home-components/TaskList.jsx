@@ -225,6 +225,8 @@ export default function TaskList() {
     });
   }, [data]);
 
+  //useMemo - calculation not done again
+
   if (isLoading) return <div>Loading todos...</div>;
   if (error) return <div>Error fetching todos</div>;
 

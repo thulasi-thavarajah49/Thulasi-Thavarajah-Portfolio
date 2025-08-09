@@ -7,6 +7,9 @@ export default function UserProfile() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
+  //request parallely
+  await Promise.all()
+
   //when the user logs out, set all notfied to false so when they log in again, they will get the toasts again
   const resetAllNotifiedMutation = useMutation({
     mutationFn: async () => {
@@ -93,6 +96,8 @@ export default function UserProfile() {
 
     //if user not found, redirect to login
     if (error.response?.status === 401) {
+
+      //better to use eseffect
       navigate("/login");
       return null;
     }

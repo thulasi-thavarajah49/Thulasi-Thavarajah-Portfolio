@@ -5,6 +5,7 @@ import DailyQuote from "../home-components/DailyQuote";
 import TaskList from "../home-components/TaskList";
 
 export default function HomePage() {
+  //check auth here
   return (
     <>
       <PreferencesProvider>
