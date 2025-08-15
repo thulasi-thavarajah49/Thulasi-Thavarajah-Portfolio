@@ -1,0 +1,97 @@
+\documentclass{article} % For LaTex2e
+\usepackage{iclr2022_conference,times}
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+%######## APS360: Uncomment your submission name
+%\newcommand{\apsname}{Project Proposal}
+%\newcommand{\apsname}{Progress Report}
+\newcommand{\apsname}{Final Report}
+
+%######## APS360: Put your Group Number here
+\newcommand{\gpnumber}{40}
+
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage{float}
+
+%######## APS360: Put your project Title here
+\title{Image Colourization via Convolutional \\
+Neural Networks and Deep Learning}
+
+%######## APS360: Put your names, student IDs and Emails here
+
+
+\author{Thulasi Thavarajah \\
+Student\# 1011358424 \\
+\texttt{t.thavarajah@mail.utoronto.ca} \\
+\AND
+}
+
+\newcommand{\fix}{\marginpar{FIx}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy 
+%######## APS360: Document starts here
+\begin{document}
+
+
+\maketitle
+
+
+\begin{center}
+----Total Pages: \pageref{last_page}  
+\end{center}
+
+\section{Team Members}
+
+Youssef Fikry \\
+Student\# 1006682626\\
+youssef.fikry@mail.utoronto.ca \\ \\
+Harkirpa Kaur  \\
+Student\# 1011242479 \\
+harkirpa.kaur@mail.utoronto.ca \\ \\
+Peter Leong \\
+Student\# 1010892955 \\
+peter.leong@mail.utoronto.ca \\
+
+\section{Contribution Summary}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\hline
+Harkirpa & Peter & Thulasi & Youssef \\
+24\% & 23\% & 26\% & 27\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Throughout the project, I made many valuable contributions to my team's work that aided in the successful completion of this project. More specifically, I was mainly in charge of the data processsing pipeline, and the subsequent data analysis included in the final report. 
+
+\subsection{Completed Tasks and Contributions}
+
+\begin{itemize}
+    \item I researched appropriate datasets for this project, and made key decisions on which ones to combine to create our dataset. The image colourization datasets available online only contained around 5000 images, which we decided was not enough to complete this project effectively. As a result, I chose three different datasets, then used Google Colab to sort them into their folders. 
+    \item I utilized the tools available in Google Colab to create our entire dataset. I labelled all the images with respect to their classes, resized all the images, and create the grayscale inputs for our model. Following this, I also split the datset appropriately and ensured the dataset was organized and labelled. 
+    \item Our team has meetings every week, and we rotated who would lead and take meeting minutes at each one. Everyone led 2-3 meetings out of the total of 11 meetings,  which means I contributed around 25\% to documenting the team's progress over the course of this semester. This also involved updating our team Gantt chart when necessary. 
+    \item For the written deliverables, I wrote drafts of the data processsing section and the introduction. I also made edits to the visuals included in the written documents, and edited my teammates' work. 
+    \item After our initial primary model's results were muted and unsatisfactory, my team split up to implement different methods to improve the model's results. I implemented multi-path colourization to help the model learn global and local semantic features in order to better predict the final output. Despite tweaking the hyperparameters to better the results, the multi-path colourization method still produced brownish results, leading to the exclusion of this method from our final model. 
+    \item Since a couple of the experimental methods we implemented produced purplish hues, I was tasked with analyzing the colour distribution of the dataset. I attempted various colour distibution algorithms, but K-means colour clustering is the only method that provided results that explained our initial brownish hues. The other methods worked in colour spaces other than CIELAB.
+    \item For our final presenation, I aided in creating visuals, and editing the order in which our information was presented. 
+\end{itemize}
+
+\subsection{Uncompleted Tasks}
+
+\begin{itemize}
+    \item Once I was completed data processing, I was tasked with aiding Peter in completing the baseline model. However, I was not able to complete this task due to the data-processing step taking longer than expected. 
+    \item I was also tasked with helping complete the ethical discussion of the final report, but due to the colour distribution task, I was not able to complete the former task. 
+\end{itemize}
+
+\label{last_page}
+
+\end{document}
